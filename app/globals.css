@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg: #06060f;
+  --card: rgba(255, 255, 255, 0.045);
+  --card-hover: rgba(255, 255, 255, 0.075);
+  --line: rgba(255, 255, 255, 0.09);
+  --text: #ecebff;
+  --muted: #a3a3c8;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Aurora background */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.32;
+}
+.aurora::before {
+  background: radial-gradient(circle, #ff4fd8 0%, #8b5cf6 45%, transparent 70%);
+  top: -20vw;
+  left: -10vw;
+  animation: float 18s ease-in-out infinite;
+}
+.aurora::after {
+  background: radial-gradient(circle, #22d3ee 0%, #ff9900 50%, transparent 70%);
+  bottom: -25vw;
+  right: -15vw;
+  animation: float 22s ease-in-out infinite reverse;
+}
+.grid-bg {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@layer components {
+  .glass {
+    @apply rounded-2xl border border-white/10 bg-white/[0.045] backdrop-blur-xl;
+  }
+  .glass-hover {
+    @apply transition hover:border-white/20 hover:bg-white/[0.075];
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-fuchsia-400 via-amber-300 to-cyan-300 bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: shimmer 6s linear infinite;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-fuchsia-500 via-orange-400 to-amber-300 text-ink-950 shadow-lg shadow-fuchsia-500/20 hover:brightness-110;
+  }
+  .btn-ghost {
+    @apply btn border border-white/15 bg-white/5 text-white hover:bg-white/10;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-xs font-medium text-slate-200;
+  }
+  .input {
+    @apply w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-fuchsia-400/60 focus:ring-2 focus:ring-fuchsia-500/20;
+  }
+  .label {
+    @apply mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-400;
+  }
+  .kbd {
+    @apply rounded border border-white/15 bg-white/10 px-1.5 py-0.5 font-mono text-[11px];
+  }
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+input[type="range"] {
+  accent-color: #e879f9;
+}
+
+.prose-academy p {
+  @apply my-3 leading-relaxed text-slate-200;
+}
+.prose-academy h1,
+.prose-academy h2,
+.prose-academy h3 {
+  @apply mb-2 mt-4 font-display font-bold text-white;
+}
+.prose-academy ul {
+  @apply my-2 list-disc space-y-1 pl-5;
+}
+.prose-academy ol {
+  @apply my-2 list-decimal space-y-1 pl-5;
+}
+.prose-academy code {
+  @apply rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-amber-200;
+}
+.prose-academy pre code {
+  @apply bg-transparent p-0 text-slate-200;
+}
+.prose-academy a {
+  @apply text-cyan-300 underline decoration-cyan-300/40 underline-offset-2 hover:decoration-cyan-300;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .aurora {
+    display: none;
+  }
+  body {
+    background: white;
+  }
+}
